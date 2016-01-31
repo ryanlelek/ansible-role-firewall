@@ -1,31 +1,52 @@
 Firewall
 ========
 
-A brief description of the role goes here.
+Firewall whitelist using IPTables
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Defaults:  
+- **ssh_in**:                   true
+- **ssh_out**:                  false
+- **http_in**:                  false
+- **http_out**:                 true
+- **https_in**:                 false
+- **https_out**:                true
+- **git_out**:                  false
+- **git_port**:                 9418
+- **papertrail_out**:           true
+- **mongodb_in**:               false
+- **mongodb_out**:              false
+- **mongodb_port**:             27017
+- **redis_in**:                 false
+- **redis_out**:                false
+- **rabbitmq_in**:              false
+- **rabbitmq_out**:             false
+- **rabbitmq_port**:            5672
+- **rabbitmq_management**:      false
+- **rabbitmq_management_ip**:   127.0.0.1
+- **rabbitmq_management_port**: 15672
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: all
       roles:
-         - { role: username.rolename, x: 42 }
+         - role: ryanlelek.firewall
+           http_in: true
+           https_in: true
 
 License
 -------
@@ -35,4 +56,5 @@ MIT
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Created by [Ryan Lelek](https://www.ryanlelek.com)  
+Part of [AnsibleTutorials.com](http://www.ansibletutorials.com)
