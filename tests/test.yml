@@ -2,4 +2,15 @@
 
 - hosts: all
   roles:
-    - ../../
+    - role: ../../
+      tcp_in:
+        - 80
+        - 443
+      udp_in:
+        - 1025
+      udp_out:
+        - 1026
+      restricted:
+        - protocol: tcp
+          port: 22
+          ip: 10.0.2.1-10.0.2.254

@@ -12,27 +12,18 @@ Role Variables
 --------------
 
 Defaults:  
-- **ssh_in**:                   true
-- **ssh_out**:                  false
-- **http_in**:                  false
-- **http_out**:                 true
-- **https_in**:                 false
-- **https_out**:                true
-- **git_out**:                  false
-- **git_port**:                 9418
-- **papertrail_out**:           true
-- **mongodb_in**:               false
-- **mongodb_out**:              false
-- **mongodb_port**:             27017
-- **redis_in**:                 false
-- **redis_out**:                false
-- **rabbitmq_in**:              false
-- **rabbitmq_out**:             false
-- **rabbitmq_port**:            5672
-- **rabbitmq_management**:      false
-- **rabbitmq_management_ip**:   127.0.0.1
-- **rabbitmq_management_port**: 15672
-
+```
+---
+tcp_in:
+  - 22
+tcp_out:
+  - 22
+  - 80
+  - 443
+udp_in:
+udp_out:
+restricted:
+```
 
 Dependencies
 ------------
@@ -41,12 +32,28 @@ None
 
 Example Playbook
 ----------------
-
-    - hosts: all
-      roles:
-         - role: ryanlelek.firewall
-           http_in: true
-           https_in: true
+```
+- hosts: all
+  roles:
+    - role: ryanlelek.firewall
+      tcp_in:
+        - 80
+        - 443
+      tcp_out:
+        - 22
+        - 80
+        - 443
+        # Git
+        - 9418
+      udp_in:
+      udp_out:
+        # Syslog / Papertrail
+        - 32507
+      restricted:
+        - protocol: tcp
+          port: 22
+          ip: [YOUR IP ADDRESS OR RANGE HERE]
+```
 
 License
 -------
