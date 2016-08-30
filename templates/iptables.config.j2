@@ -31,29 +31,29 @@
 # TCP INBOUND
 # Only SSH needs "NEW" for outbound part
 # RabbitMQ might too
-{% for port in tcp_in %}
+{% if tcp_in %}{% for port in tcp_in %}
 -A INPUT  -p tcp -m tcp --dport {{ port }} -m state --state NEW,ESTABLISHED -j ACCEPT
 -A OUTPUT -p tcp -m tcp --sport {{ port }} -m state --state NEW,ESTABLISHED -j ACCEPT
-{% endfor %}
+{% endfor %}{% endif %}
 
 # TCP OUTBOUND
 # Could add -m tcp here as well
-{% for port in tcp_out %}
+{% if tcp_out %}{% for port in tcp_out %}
 -A OUTPUT -p tcp        --dport {{ port }} -m state --state NEW,ESTABLISHED -j ACCEPT
 -A INPUT  -p tcp        --sport {{ port }} -m state --state     ESTABLISHED -j ACCEPT
-{% endfor %}
+{% endfor %}{% endif %}
 
 # UDP INBOUND
-{% for port in udp_in %}
+{% if udp_in %}{% for port in udp_in %}
 -A INPUT  -p udp --dport {{ port }} -j ACCEPT
 -A OUTPUT -p udp --sport {{ port }} -j ACCEPT
-{% endfor %}
+{% endfor %}{% endif %}
 
 # UDP OUTBOUND
-{% for port in udp_out %}
+{% if udp_out %}{% for port in udp_out %}
 -A OUTPUT -p udp --dport {{ port }} -j ACCEPT
 -A INPUT  -p udp --sport {{ port }} -j ACCEPT
-{% endfor %}
+{% endfor %}{% endif %}
 
 # RESTRICTED
 # Can also add same rule with -j DROP

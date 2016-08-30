@@ -7,7 +7,6 @@
         - 80
         - 443
       udp_in:
-        - 1025
       udp_out:
         - 1026
       restricted:
