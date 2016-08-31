@@ -61,10 +61,10 @@
 {% for item in restricted %}
 {% if item.protocol == "udp" %}
 -A INPUT  -p udp --dport {{ item.port }} -m iprange --src-range {{ item.ip }} -j ACCEPT
--A OUTPUT -p udp --sport {{ item.port }} -m iprange --src-range {{ item.ip }} -j ACCEPT
+-A OUTPUT -p udp --sport {{ item.port }} -m iprange --dst-range {{ item.ip }} -j ACCEPT
 {% else %}
 -A INPUT  -p tcp --dport {{ item.port }} -m iprange --src-range {{ item.ip }} -m state --state NEW,ESTABLISHED -j ACCEPT
--A OUTPUT -p tcp --sport {{ item.port }} -m iprange --src-range {{ item.ip }} -m state --state NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp --sport {{ item.port }} -m iprange --dst-range {{ item.ip }} -m state --state NEW,ESTABLISHED -j ACCEPT
 {% endif %}
 {% endfor %}
 
